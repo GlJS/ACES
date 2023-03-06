@@ -25,5 +25,4 @@ print(scores)
 ```
 
 ## Evaluation
-```
 Model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense-experiment/main.py`. 

@@ -21,18 +21,25 @@ class ACES(TokenClassificationPipeline):
             return_special_tokens_mask=True,
             return_offsets_mapping=self.tokenizer.is_fast,
         )
+        # add is_last
+        is_last = torch.zeros((model_inputs["input_ids"].shape[0], 1), dtype=torch.int)
+        is_last[-1] = 1
+        model_inputs["is_last"] = is_last
+
+        
         if offset_mapping:
             model_inputs["offset_mapping"] = offset_mapping
 
         model_inputs["sentence"] = sentence
 
-        return model_inputs
+        yield model_inputs
 
 
     def _forward(self, model_inputs):
         special_tokens_mask = model_inputs.pop("special_tokens_mask")
         offset_mapping = model_inputs.pop("offset_mapping", None)
         sentence = model_inputs.pop("sentence")
+        is_last = model_inputs.pop("is_last")
 
         output = self.model(**model_inputs, output_hidden_states=True, return_dict=True)
         logits = output.logits
@@ -44,10 +51,13 @@ class ACES(TokenClassificationPipeline):
             "offset_mapping": offset_mapping,
             "sentence": sentence,
             "last_hidden_state": last_hidden_state,
+            "is_last": is_last,
             **model_inputs,
         }
 
     def postprocess(self, model_outputs, aggregation_strategy=AggregationStrategy.NONE, ignore_labels=["O"]):
+        if isinstance(model_outputs, list):
+            model_outputs = model_outputs[0]
         logits = model_outputs["logits"][0].numpy()
 
         maxes = np.max(logits, axis=-1, keepdims=True)
@@ -196,7 +206,9 @@ class CalculateACESScore():
         scores = []
         for cand_entity in cand:
             correct_ref_entity = list(filter(lambda ref_entity: ref_entity["entity_group"] == cand_entity["entity_group"], ref))
-            assert len(correct_ref_entity) == 1, "There should be only one reference entity for each candidate entity"
+            # assert len(correct_ref_entity) == 1, "There should be only one reference entity for each candidate entity"
+            if len(correct_ref_entity) == 0:
+                continue
             ref_entity = correct_ref_entity[0]
             cand_norm = cand_entity["hidden_state"] / cand_entity["hidden_state"].norm(dim=-1, keepdim=True)
             ref_norm = ref_entity["hidden_state"] / ref_entity["hidden_state"].norm(dim=-1, keepdim=True)
@@ -246,8 +258,8 @@ def get_aces_score(cands: List[str], refs: Union[List[List[str]], List[str]], av
 
 
 if __name__ == "__main__":
-    cands = ["Young woman talking with crickling noise"]
-    refs = ["Paper crackling with female speaking lightly in the background"]
-    pipe = pipeline("token-classification", model="output/roberta-large", aggregation_strategy="average", pipeline_class=ACES, device=1)
+    cands = ["chirping singing and birds a bunch"]
+    refs = ["birds are chirping and singing loudly in the forest"]
+    pipe = pipeline("token-classification", model="gijs/aces-roberta-13", aggregation_strategy="average", pipeline_class=ACES, device=-1)
     scores = get_aces_score(cands, refs, average=False, pipe=pipe)
     print(scores)

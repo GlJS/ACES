@@ -1,5 +1,5 @@
 bert_score==0.3.10
-spacy==3.0.6
+spacy==3.0.7
 pyahocorasick==1.4.2
 git+https://github.com/google-research/bleurt
 numpy==1.24.1
@@ -9,3 +9,4 @@ sentence_transformers==2.2.2
 tqdm==4.49.0
 scikit-image==0.19.3
 wandb==0.13.9
+pytest==7.2.2

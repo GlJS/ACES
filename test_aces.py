@@ -3,7 +3,7 @@ import numpy as np
 import torch
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
 
-from aces import get_aces_score, ACES
+from src.aces.aces import get_aces_score, ACES
 from transformers import pipeline
 import time
 from evaluation.fense_experiment.experiment.sweep import get_aces_score as get_aces_score_old

@@ -6,11 +6,7 @@ In here you will find the instructions how to train an ACES model and calculate 
 
 ## Installation
 ```
-git clone https://github.com/GlJS/ACES.git
-cd ACES
-python3 -m venv env
-source env/bin/activate
-pip install -r requirements.txt
+pip install aces-metric
 ```
 ## Usage
 The candidates can be a list, the references can be a list or a list of lists. 

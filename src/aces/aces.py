@@ -1,11 +1,8 @@
-
 import string
 import numpy as np
 
-
 from collections import defaultdict
 from typing import Any, List, Optional, Tuple, Union, Dict
-from tqdm import tqdm
 from transformers import pipeline, TokenClassificationPipeline
 from transformers.pipelines.token_classification import AggregationStrategy
 import torch
@@ -13,7 +10,6 @@ from sentence_transformers import SentenceTransformer, CrossEncoder
 from fense.evaluator import Evaluator
 from typing import Literal
 from torch.nn import functional as F
-import warnings
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -411,7 +407,6 @@ def get_aces_score(cands: List[str],
     scores = np.array(scores)
     print(len(cands))
     fl_err = fense_eval.detect_error_sents(cands, batch_size=batch_size)
-    print("Scores:", scores.shape, "Fl_err", fl_err.shape)
     scores = np.array([aces_fl-0.5*err*aces_fl for aces_fl,err in zip(scores, fl_err)])
 
     if average:
@@ -423,5 +418,5 @@ def get_aces_score(cands: List[str],
 if __name__ == "__main__":
     cands = ["chirping singing and birds a bunch"]
     refs = ["birds are chirping and singing loudly in the forest"]
-    scores = get_aces_score(cands, refs, average=False, model="base")
+    scores = get_aces_score(cands, refs, average=True, model="large")
     print(scores)

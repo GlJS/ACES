@@ -2,7 +2,7 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "2,1"
 import sys
 sys.path.insert(0, os.getcwd()) 
-from aces import get_aces_score, ACES
+from src.aces.aces import get_aces_score, ACES
 import json
 import numpy as np
 import pandas as pd

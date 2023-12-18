@@ -4,8 +4,8 @@ import requests
 import hashlib
 from tqdm import tqdm
 from collections import namedtuple
-from os import environ, listdir, makedirs
-from os.path import dirname, exists, expanduser, isdir, join, splitext
+from os import environ, makedirs
+from os.path import exists, expanduser, join
 
 RemoteFileMetadata = namedtuple('RemoteFileMetadata',
                                 ['filename', 'url', 'checksum'])

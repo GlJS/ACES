@@ -1,8 +1,5 @@
-import torch
-import numpy as np
-import matplotlib.pyplot as plt
-from torch import nn, optim, threshold
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoModel
+from torch import nn
+from transformers import AutoModel
 
 
 class BERTFlatClassifier(nn.Module):

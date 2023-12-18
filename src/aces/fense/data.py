@@ -1,9 +1,5 @@
-from collections import defaultdict
-import os
 import re
 import torch
-from transformers import AutoTokenizer
-from collections import defaultdict
 
 def text_preprocess(inp):
     if type(inp) == str:

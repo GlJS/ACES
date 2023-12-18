@@ -12,7 +12,7 @@ import numpy as np
 import string
 
 from bert_score import score
-from aces import ACES, get_aces_score
+from src.aces.aces import ACES, get_aces_score
 from evaluation.eval_metrics import evaluate_metrics_from_lists
 from transformers import pipeline
 from fense.evaluator import Evaluator

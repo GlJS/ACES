@@ -5,16 +5,24 @@ This is the repository of Audio Captioning Evaluation on Semantics of Sound (ACE
 In here you will find the instructions how to train an ACES model and calculate statistics. 
 
 ## Installation
-```
+``` bash
 pip install aces-metric
 ```
 ## Usage
 The candidates can be a list, the references can be a list or a list of lists. 
-```
+``` python
 from aces import get_aces_score
 candidates = ["a bunch of birds are singing"]
 references = ["birds are chirping and singing loudly in the forest"]
 score = get_aces_score(candidates, references, average=True)
+```
+
+### Semantics of sounds
+To just clasify a caption based on the semantics of sounds (the basis of the ACES metric):
+``` python
+from transformers import pipeline
+pipe = pipeline("token-classification", "gijs/aces-roberta-13", aggregation_strategy="simple")
+pipe("Bird chirps in the tree while a car hums")
 ```
 
 ## Evaluation

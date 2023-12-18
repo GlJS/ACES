@@ -18,5 +18,4 @@ score = get_aces_score(candidates, references, average=True)
 ```
 
 ## Evaluation
-All the code that is used to evaluate different models for the research paper can be found in the `evaluation` folder. Particularly,
-the model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense_experiment/main.py`. 
+All the code that is used to evaluate different models for the research paper can be found in the `evaluation` folder on the [github](https://github.com/GlJS/ACES). Particularly, the model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense_experiment/main.py`. 

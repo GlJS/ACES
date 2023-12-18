@@ -11,3 +11,4 @@ cache*
 lib
 .hypothesis
 pycocoevalcap/tokenizer/tmp*
+.DS_Store

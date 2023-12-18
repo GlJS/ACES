@@ -18,7 +18,7 @@ score = get_aces_score(candidates, references, average=True)
 ```
 
 ### Semantics of sounds
-To just clasify a caption based on the semantics of sounds (the basis of the ACES metric):
+To get an output of classes of semantic groups from a caption:
 ``` python
 from transformers import pipeline
 pipe = pipeline("token-classification", "gijs/aces-roberta-13", aggregation_strategy="simple")

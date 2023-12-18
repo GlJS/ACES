@@ -1,8 +1,9 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
  
 from utils import get_data, compute_metrics, tokenize_and_align_labels
-from settings import all_labels, data_path, reduced
+from settings import all_labels, data_path
 import wandb
 
 from sklearn.model_selection import train_test_split
@@ -42,17 +43,17 @@ for checkpoint in MODEL_CHECKPOINTS:
     )
 
     args = TrainingArguments(
-        output_dir=f"./output/hub/{checkpoint}{'_reduced' if reduced else ''}",
+        output_dir=f"./output/hub/{checkpoint}",
         evaluation_strategy="epoch",
         save_strategy="no",
-        learning_rate=2e-5,
-        num_train_epochs=5,
+        learning_rate=1e-5,
+        num_train_epochs=10,
         logging_steps=10,
         weight_decay=0.01,
         report_to="wandb",
         push_to_hub=True,
-        push_to_hub_model_id=f"roberta-base{'-reduced' if reduced else ''}",
-        run_name=f"{checkpoint}{'_reduced' if reduced else ''}",
+        push_to_hub_model_id=f"aces-roberta-base-13",
+        run_name=f"{checkpoint}",
     )
 
     trainer = Trainer(

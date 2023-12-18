@@ -9,3 +9,5 @@ env
 output
 cache*
 lib
+.hypothesis
+pycocoevalcap/tokenizer/tmp*

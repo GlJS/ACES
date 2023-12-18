@@ -13,16 +13,14 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 ## Usage
-First, train a model running `python3 training/train.py`. Then you can import ACES by:
+The candidates can be a list, the references can be a list or a list of lists. 
 ```
-from transformers import pipeline
-from aces import ACES, get_aces_score
-cands = ["Young woman talking with crickling noise"]
-refs = ["Paper crackling with female speaking lightly in the background"]
-pipe = pipeline("token-classification", model="output/roberta-large", aggregation_strategy="average", pipeline_class=ACES, device=0)
-scores = get_aces_score(cands, refs, average=False, pipe=pipe)
-print(scores)
+from aces import get_aces_score
+candidates = ["a bunch of birds are singing"]
+references = ["birds are chirping and singing loudly in the forest"]
+score = get_aces_score(candidates, references, average=True)
 ```
 
 ## Evaluation
-Model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense-experiment/main.py`. 
+All the code that is used to evaluate different models for the research paper can be found in the `evaluation` folder. Particularly,
+the model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense_experiment/main.py`. 

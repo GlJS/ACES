@@ -1,5 +1,7 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+os.environ["WANDB_MODE"] = "offline"
  
 from utils import get_data, compute_metrics, tokenize_and_align_labels
 from settings import all_labels, data_path, folder
@@ -14,7 +16,7 @@ from transformers import TrainingArguments, Trainer
 import pandas as pd
 import torch
 
-MODEL_CHECKPOINTS = ["roberta-large"]
+MODEL_CHECKPOINTS = ["roberta-base"]
 data = pd.read_json(data_path, lines=True)
 tags, texts = get_data(data)
 
@@ -51,7 +53,7 @@ for checkpoint in MODEL_CHECKPOINTS:
         output_dir=f"./output/{checkpoint}",
         evaluation_strategy="steps",
         save_strategy="no",
-        learning_rate=1e-5,
+        learning_rate=2e-5,
         num_train_epochs=5,
         logging_steps=20,
         eval_steps=20,

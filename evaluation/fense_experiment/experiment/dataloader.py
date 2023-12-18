@@ -3,9 +3,9 @@ import numpy as np
 from tqdm import tqdm
 import pandas as pd
 
-with open('evaluation/fense-experiment/dataset/audiocaps_eval.json') as f:
+with open('evaluation/fense_experiment/dataset/audiocaps_eval.json') as f:
     anno_audiocaps = json.load(f)
-with open('evaluation/fense-experiment/dataset/clotho_eval.json') as f:
+with open('evaluation/fense_experiment/dataset/clotho_eval.json') as f:
     anno_clotho = json.load(f)
 
 def expand_refs(all_refs_text):

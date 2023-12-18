@@ -7,7 +7,7 @@ from transformers import pipeline, TokenClassificationPipeline
 from transformers.pipelines.token_classification import AggregationStrategy
 import torch
 from sentence_transformers import SentenceTransformer, CrossEncoder
-from src.aces.fense.evaluator import Evaluator
+from .fense.evaluator import Evaluator
 from typing import Literal
 from torch.nn import functional as F
 

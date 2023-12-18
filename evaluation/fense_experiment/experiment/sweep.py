@@ -11,7 +11,7 @@ from tqdm import tqdm
 from sentence_transformers import SentenceTransformer, CrossEncoder
 from bert_score import BERTScorer
 from bleurt import score as bleurt_score
-from fense.evaluator import Evaluator
+from src.aces.fense.evaluator import Evaluator
 from evaluation.eval_metrics import evaluate_metrics_from_lists
 import wandb
 import string

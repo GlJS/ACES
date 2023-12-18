@@ -9,7 +9,6 @@ import pandas as pd
 import json 
 import torch
 from tqdm import tqdm
-from fense.evaluator import Evaluator
 import sys
 from sentence_transformers import SentenceTransformer, CrossEncoder
 from transformers.pipelines.token_classification import AggregationStrategy

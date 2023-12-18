@@ -10,12 +10,13 @@ import pandas as pd
 import pickle
 import numpy as np
 import string
+import torch
 
 from bert_score import score
 from src.aces import ACES, get_aces_score
 from evaluation.eval_metrics import evaluate_metrics_from_lists
 from transformers import pipeline
-from fense.evaluator import Evaluator
+from src.aces.fense.evaluator import Evaluator
 
 
 # Class to remove all the spam output I get from captioning evaluation tools
@@ -52,8 +53,8 @@ audiocaption = pd.read_csv("./evaluation/captioning-results/audiocaption-preds.c
 clotho_eval = pd.read_csv("./dataset/clotho_captions_evaluation.csv")
 
 
-pipe = pipeline("token-classification", model="gijs/aces-roberta-13", aggregation_strategy="simple", pipeline_class=ACES, device=0)
-pipe2 = pipeline("token-classification", model="gijs/aces-roberta-base-13", aggregation_strategy="simple", pipeline_class=ACES, device=1)
+pipe = pipeline("token-classification", model="gijs/aces-roberta-13", aggregation_strategy="simple", pipeline_class=ACES, device=0 if torch.cuda.is_available() else -1)
+pipe2 = pipeline("token-classification", model="gijs/aces-roberta-base-13", aggregation_strategy="simple", pipeline_class=ACES, device=1 if torch.cuda.is_available() else -1)
 
 
 results = []

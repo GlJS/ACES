@@ -7,7 +7,7 @@ from transformers import pipeline, TokenClassificationPipeline
 from transformers.pipelines.token_classification import AggregationStrategy
 import torch
 from sentence_transformers import SentenceTransformer, CrossEncoder
-from fense.evaluator import Evaluator
+from src.aces.fense.evaluator import Evaluator
 from typing import Literal
 from torch.nn import functional as F
 
@@ -405,7 +405,6 @@ def get_aces_score(cands: List[str],
     
     scores = aces(cands_cas, refs_cas)
     scores = np.array(scores)
-    print(len(cands))
     fl_err = fense_eval.detect_error_sents(cands, batch_size=batch_size)
     scores = np.array([aces_fl-0.5*err*aces_fl for aces_fl,err in zip(scores, fl_err)])
 

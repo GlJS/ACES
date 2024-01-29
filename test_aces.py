@@ -6,7 +6,6 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0,1,2"
 from src.aces import get_aces_score, ACES
 from transformers import pipeline
 import time
-from evaluation.fense_experiment.experiment.sweep import get_aces_score as get_aces_score_old
 
 
 def test_single_single():
@@ -71,6 +70,7 @@ def test_clotho_single():
 
 def test_clotho_single_old():
     import pandas as pd
+    from evaluation.fense_experiment.experiment.sweep import get_aces_score as get_aces_score_old
     clotho_eval = pd.read_csv("./dataset/clotho_captions_evaluation.csv")
     cands = clotho_eval["caption_1"].tolist()
     refs = clotho_eval["caption_2"].tolist()
@@ -105,11 +105,11 @@ def test_same():
 
 if __name__ == "__main__":
     start_time = time.time()
-    # test_single_single()
-    # test_single()
-    # test_multiple_single()
-    # test_multiple_multiple()
-    # test_clotho()
+    test_single_single()
+    test_single()
+    test_multiple_single()
+    test_multiple_multiple()
+    test_clotho()
     test_clotho_single()
     # test_clotho_single_old()
     # test_clotho_average()

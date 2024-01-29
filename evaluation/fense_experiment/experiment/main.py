@@ -154,11 +154,11 @@ if __name__ == '__main__':
         def shrink(arr, repeat=5):
             return np.array(arr).reshape(-1, repeat).mean(axis=1).tolist()
 
-        # baseline_list = ['Bleu_1','Bleu_2','Bleu_3','Bleu_4','METEOR','ROUGE_L','CIDEr','SPICE','SPIDEr']
-        # for metric in baseline_list:
-        #     total_score0[metric] = torch.Tensor(get_score_list(per_file_metrics0, metric) + shrink(get_score_list(mm_per_file_metrics0, metric)))
-        #     total_score1[metric] = torch.Tensor(get_score_list(per_file_metrics1, metric) + shrink(get_score_list(mm_per_file_metrics1, metric)))
-        #     total_score[metric] = total_score0[metric] - total_score1[metric]
+        baseline_list = ['Bleu_1','Bleu_2','Bleu_3','Bleu_4','METEOR','ROUGE_L','CIDEr','SPICE','SPIDEr']
+        for metric in baseline_list:
+            total_score0[metric] = torch.Tensor(get_score_list(per_file_metrics0, metric) + shrink(get_score_list(mm_per_file_metrics0, metric)))
+            total_score1[metric] = torch.Tensor(get_score_list(per_file_metrics1, metric) + shrink(get_score_list(mm_per_file_metrics1, metric)))
+            total_score[metric] = total_score0[metric] - total_score1[metric]
 
         results = []
         all_results = []

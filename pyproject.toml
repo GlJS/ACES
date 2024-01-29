@@ -8,7 +8,7 @@ description = "ACES metric for evaluating automated audio captioning models base
 readme = "README.md"
 authors = [{name = "Gijs Wijngaard", email = "hi@gijs.me"}]
 license = {file = "LICENSE"}
-requires-python = ">=3.9"
+requires-python = ">=3.9,<3.11"
 dynamic = ["version", "dependencies"]
 
 [tool.setuptools.dynamic]

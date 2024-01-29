@@ -20,7 +20,6 @@ from transformers.pipelines.token_classification import AggregationStrategy
 from typing import Any, List, Optional, Tuple, Union
 import numpy as np
 import warnings
-from datasets import Dataset
 
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')

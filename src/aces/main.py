@@ -275,7 +275,7 @@ class CalculateACESScore():
 
         return result_dict
 
-    def __call__(self, cands: List[dict], refs: Union[List[dict], List[List[dict]]] ) -> List[float]:    
+    def __call__(self, cands: List[dict], refs: Union[List[dict], List[List[dict]]] ) -> Union[List[float], float]:    
         """
         Calculates ACES scores for each reference against candidates.
 
@@ -393,10 +393,10 @@ def get_aces_score(cands: List[str],
 
     if isinstance(refs[0], list):
         lengths = list(set([len(r) for r in refs]))
-        assert len(lengths) == 1, "All references must have the same number of sentences"
+
         refs_cas = [r for ref in refs for r in ref]
         refs_cas = pipe(refs_cas, batch_size=batch_size)
-        refs_cas = [refs_cas[i:i+lengths[0]] for i in range(0, len(refs_cas), lengths[0])]
+        refs_cas = [refs_cas[sum(lengths[:i]):sum(lengths[:i+1])] for i in range(len(lengths))]
     else:
         refs_cas = pipe(refs, batch_size=batch_size)
 
@@ -410,6 +410,8 @@ def get_aces_score(cands: List[str],
 
     if average:
         scores = np.mean(scores)
+    
+    scores = np.clip(scores, 0, 1)
 
     return scores
 

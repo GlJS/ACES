@@ -2,6 +2,8 @@
 
 This is the repository of Audio Captioning Evaluation on Semantics of Sound (ACES). 
 
+Corresponding paper: [https://arxiv.org/abs/2403.18572](https://arxiv.org/abs/2403.18572).
+
 In here you will find the instructions how to train an ACES model and calculate statistics. 
 
 ## Installation
